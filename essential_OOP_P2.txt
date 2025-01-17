@@ -1,0 +1,90 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace SE06303_OOP_Lab4
+{
+    internal class Program
+    {
+        delegate void PrintDelegate(List<Person> p);
+        static void Main(string[] args)
+        {
+            List<int> numbers = new List<int> { 1, 2, 5, 4, 3, 0, 7 };
+            List<int> evenNumbers1 = new List<int>();
+            for (int i = 0; i < numbers.Count; i++)
+            {
+                if (numbers[i] % 2 == 0)
+                {
+                    evenNumbers1.Add(numbers[i]);
+                }
+            }
+
+            Utils.printList(evenNumbers1);
+
+            Console.WriteLine("----------- new Way with LinQ to Objects -------------");
+
+            var evenNumber2 = numbers.Where(e => e % 2 == 0); // LinQ to objects
+
+            Utils.printList(evenNumber2.ToList());
+
+            List<Person> people = new List<Person> // List cac person
+            {
+                new Person {Name = "Linh", Age = 35},
+                new Person {Name = "Hoang", Age = 21},
+                new Person {Name = "Minh", Age = 20},
+            };
+            //
+            var adults_linqQuery = from person in people
+                         where person.Age > 20
+                         select person.Name;
+            List<Person> adults_linqMethod = people.Where(e => e.Age > 20).ToList();
+
+            
+            Utils.printListName(adults_linqQuery.ToList());
+
+            // Lambda expression---------------         
+            PrintDelegate print = (list) => // print la ten ham lambda, list là biến taạm thời lưu trữ giá trị truyền vào cần xử  lý
+            {
+                for(int i = 0; i < list.Count; i++)
+                {
+                    list[i].Age = 20;
+                    Console.WriteLine("Lambda "+ list[i].Name + " : " + list[i].Age);
+                }
+            };
+            // chay ham lambda-----------------
+            print(adults_linqMethod);
+
+            
+        }
+    }
+
+    class Person
+    {
+        public string Name { get; set; }
+        public int Age { get; set; }
+        
+    }
+
+    class Utils
+    {
+        public static void printList(List<int> list)
+        {
+            for (int i = 0; i < list.Count; i++)
+            {
+                Console.WriteLine(list[i]);
+            }
+        }
+        public static void printListName(List<string> list)
+        {
+            for (int i = 0; i < list.Count; i++)
+            {
+                Console.WriteLine(list[i]);
+            }
+        }
+
+
+
+    }
+}
