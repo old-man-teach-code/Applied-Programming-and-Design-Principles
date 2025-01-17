@@ -1,0 +1,51 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace SE06303_APDP_B3
+{
+    internal class Program
+    {
+        static void Main(string[] args)
+        {
+            Shape shape = new Shape();
+            StaticShape.value = 10;
+            StaticShape.Area();
+
+            int? x = null; // nullable variant
+
+            int age = x ?? 18;
+
+            Console.WriteLine("x = " + x);
+
+            double y = default;
+            Console.WriteLine("y = " + y);
+        }
+    }
+
+    class Shape
+    {
+        public int value;
+        public Shape()
+        {
+            Console.WriteLine("Constructor has been called");
+        }
+
+        public void Area()
+        {
+            Console.WriteLine("Area of Shape has been called with value = " + value + " \n and StaticShape " + StaticShape.value);
+        }
+    }
+
+    class StaticShape
+    {
+        public static int value;
+
+        public static void Area()
+        {
+            Console.WriteLine("Area of StaticShape has been called with value = " + value);
+        }
+    }
+}
